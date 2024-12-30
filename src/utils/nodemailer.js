@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendMailFunction = async (mail, token) => {
-    const tokenLink = `http://localhost:4000/api/v1/users/token/verify/${token}`;
+    const tokenLink = `${process.env.BACKEND_URL}/api/v1/users/token/verify/${token}`;
     const mailOptions = {
         from: process.env.GMAIL_APP_USERNAME,
         to: mail,
