@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
 
 export const auth = asyncHandler(async (req, res, next) => {
-
+    console.log(req.cookies);
     const token = req.cookies.accessToken;
 
     if (!token) {
