@@ -10,7 +10,7 @@ export const ___dirname = path.resolve();
 
 //Middlewares
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://vanshrajput099.github.io/chat-app-frontend/'],
+    origin: ['http://localhost:5173', 'https://vanshrajput099.github.io'],
     credentials: true,
 }));
 app.use(express.json());
@@ -24,7 +24,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ['http://localhost:5173', 'https://vanshrajput099.github.io/chat-app-frontend/'],
+        origin: ['http://localhost:5173', 'https://vanshrajput099.github.io'],
         credentials: true,
     },
 });
