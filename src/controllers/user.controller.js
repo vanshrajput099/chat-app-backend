@@ -91,7 +91,10 @@ export const loginUser = asyncHandler(async (req, res) => {
         return res.status(500).json(new ApiError(500, "Internal Server Error"));
     }
 
-    return res.cookie("accessToken", accessToken, { httpOnly: true }).json(new ApiResponse(200, "User Logged In Successfully", refreshSave));
+    return res.cookie("accessToken", accessToken, {
+        httpOnly: true, secure: true,
+        sameSite: "None"
+    }).json(new ApiResponse(200, "User Logged In Successfully", refreshSave));
 });
 
 export const logoutUser = asyncHandler(async (req, res) => {
@@ -102,15 +105,18 @@ export const logoutUser = asyncHandler(async (req, res) => {
     }
 
     user.refreshToken = null;
-    
+
     const userUpdate = await user.save({ validateBeforeSave: false });
-    
+
     io.emit("disconnectUser", req.user._id);
     if (!userUpdate) {
         return res.status(500).json(new ApiError(500, "Internal Server Error"));
     }
 
-    res.clearCookie("accessToken", { httpOnly: true });
+    res.clearCookie("accessToken", {
+        httpOnly: true, secure: true,
+        sameSite: "None"
+    });
     return res.status(200).json(new ApiResponse(200, "User Logged Out Successfully"));
 });
 
